@@ -4,9 +4,29 @@ function followajay_theme_support(){
     // add dynamic title tag
     add_theme_support( 'title-tag' );
     add_theme_support('custom-logo');
+    add_theme_support('post-thumbnails');
 }
 
 add_action( 'after_setup_theme', "followajay_theme_support" );
+
+function publish_date_ago() {
+    $post_date = get_the_date('Y-m-d'); // Get date in yyyy-mm-dd format
+    $now = current_time('Y-m-d'); // Get current date in yyyy-mm-dd format
+    $days_diff = abs(strtotime($now) - strtotime($post_date)); // Calculate absolute difference in timestamps
+    $days = floor($days_diff / (60*60*24)); // Convert difference to days
+  
+    if ($days == 0) {
+      echo 'Published today';
+    } else if ($days <= 30) {
+        echo 'Published ' . $days . ' day ago';
+    } else if ($days <= 30) {
+      echo 'Published ' . $days . ' days ago';
+    } else {
+      $months = floor($days / 30);
+      echo 'Published ' . $months . ' months ago';
+    }
+  }
+  
 
 
 function followajay_menus(){
